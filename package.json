@@ -1,0 +1,11 @@
+{
+  "name": "TypescriptIn50Lessons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:joma74/TypescriptIn50Lessons.git",
+  "author": "joma74 <dev-mails@gmx.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
