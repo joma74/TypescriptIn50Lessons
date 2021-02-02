@@ -1,4 +1,6 @@
 /* eslint-disable no-undef, no-unused-vars, @typescript-eslint/no-unused-vars, no-redeclare */
+// Make it a module
+export {}
 
 /**
  * Enter unknown, 42
@@ -34,7 +36,7 @@ const missingProperties = {
 const anotherMovie: Article = missingProperties
 
 /**
- * Declaration merging for interfaces, p54
+ * Declaration merging for interfaces, 54
  */
 interface ShopItem {
 	title: string

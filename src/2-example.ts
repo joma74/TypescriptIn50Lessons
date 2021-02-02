@@ -1,5 +1,8 @@
 /* eslint-disable no-undef, no-unused-vars, @typescript-eslint/no-unused-vars */
 
+// Make it a module
+export {}
+
 /**
  * If we are only interested in types, we use a slight variation on the regular ECMAScript import: a type import.
  * 49
