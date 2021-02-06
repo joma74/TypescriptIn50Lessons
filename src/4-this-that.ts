@@ -18,6 +18,8 @@ declare function displaySearch(
 ): void
 
 /**
+ * Lesson 18: This and That
+ *
  * Property 'value' does not exist on type 'HTMLElement'.
  *
  * @param inputId
@@ -63,7 +65,7 @@ function inputChangeHandlerA() {
 
 /**
  * TypeScript has a way of dealing with situations like this: we are allowed
- * to type this ! Function declarations can have another additional parameter,
+ * to type this! Function declarations can have another additional parameter,
  * that has to be at the very first position: this. This parameter gets erased
  * once we compile TypeScript down to JavaScript.
  */

@@ -10,6 +10,8 @@ type Result = {
 }
 
 /**
+ * Typing Function Heads
+ *
  * We use the declare keyword to make the function available without
  * implementing a function body at the moment.
  */
@@ -18,10 +20,16 @@ declare function search(query: string, tags?: string[]): Result[]
 search("Ember")
 search("Ember", ["JavaScript"])
 
-// We can get the function’s type most easily by calling typeof
+/**
+ * Lesson 16: Callbacks
+ *
+ * We can get the function’s type most easily by calling typeof
+ */
 type SearchFnAa = typeof search
 
-// Or type a function head seperately
+/**
+ * Or type a function head seperately
+ */
 type SearchFnA = (query: string, tags?: string[]) => Promise<Result[]>
 
 /**
@@ -31,7 +39,11 @@ function searchB(query: string, tags?: string[]): Promise<Result[]> {
 	return fetch(`search${query}`).then((rs) => rs.json())
 }
 
-// We can get the function’s type most easily by calling typeof
+/**
+ * Function Types in Functions
+ *
+ * We can get the function’s type most easily by calling typeof
+ */
 type SearchFnB = typeof searchB
 
 /**
@@ -100,6 +112,8 @@ testSearchB("term")
 testSearchB("term", ["an option"])
 
 /**
+ * Lesson 17: Substitutability
+ *
  * And we can also completely remove the optional parameter tags (the string array)
  *  if we don’t have any use for it:
  */
@@ -203,6 +217,12 @@ const searchWithCallbackAImpl: typeof searchWithCallbackA = function (
 	)
 }
 
+/**
+ * Still types to
+ * ```ts
+ * const searchWithCallbackAImpl: (query: string, callback: (results: Result[]) => void, tags?: string[] | undefined) => void
+ * ```
+ */
 searchWithCallbackAImpl("unused", (results) => {
 	return "1"
 })
