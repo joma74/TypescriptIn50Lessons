@@ -33,6 +33,10 @@
 - void as return's security gate
 - overload function types(fails, see TODO)
 
+## 7-generatorfunctions
+
+## 8-unionintersectiontypes
+
 # References
 
 - Book's Home at https://typescript-book.com/

@@ -61,7 +61,7 @@ async function handleChange(this: HTMLElement, ev: Event) {
 			}
 		} while (!next.done)
 		// if one does not pass something in, then more elegantly
-		// But as we pass in stop:
+		// But as we pass in stop, an expected error is reported:
 		// Cannot iterate value because the 'next' method of its iterator expects type 'boolean', but for-of will always send 'undefined'.ts(2763)
 		for await (let results of resultsGen) {
 			results.map(append)
