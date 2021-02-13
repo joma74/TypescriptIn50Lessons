@@ -37,6 +37,10 @@
 
 ## 8-unionintersectiontypes
 
+- Value Types
+- Index Access Types or Lookup Types
+- Mapped Types
+
 # References
 
 - Book's Home at https://typescript-book.com/

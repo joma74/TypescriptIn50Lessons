@@ -191,6 +191,13 @@ declare const event: TechEvent
 // Accessing the kind property via the index operator
 console.log(event.kind)
 /**
+ * Index Access Types or Lookup Types
+ *
+ * Since the union of TechEvent already combines all possible values of property types
+ * into unions, we don’t need to define EventKind on our own anymore.
+ *
+ * Types like this are called index access types or lookup types.
+ *
  * ! Doing the same thing on a type level
  */
 type EventKind2 = TechEvent2["kind"]
@@ -203,6 +210,7 @@ filterByKind3(eventList, "hackathon")
 
 /**
  * Mapped Types
+ *
  * Let's look at a function that groups events by their kind.
  */
 type GroupedEvents = {
