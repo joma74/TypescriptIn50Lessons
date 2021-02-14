@@ -41,6 +41,20 @@
 - Index Access Types or Lookup Types
 - Mapped Types
 
+## 9-objectkeystypredicates
+
+- key of
+- type predicate
+
+## 10-never-undefinednull
+
+- never as a safeguard
+- strictNullChecks
+
+## 11-tupletypes
+
+- individual type arrays
+
 # References
 
 - Book's Home at https://typescript-book.com/
