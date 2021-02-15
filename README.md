@@ -55,6 +55,13 @@
 
 - individual type arrays
 
+## 12-generics
+
+- Generic
+- Generic with extends boundary
+- Index Type
+- extends keyof
+
 # References
 
 - Book's Home at https://typescript-book.com/
