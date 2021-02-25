@@ -79,8 +79,8 @@ function search(term: string, p2?: unknown, p3?: string[]) {
 type SearchOverloadFn = typeof search
 
 /**
- *
- * Fix|Evaluate: Type '(term: string, p2?: string[] | ((results: Result[]) => void) | undefined, p3?: string[] | undefined) => void'
+ * TODO Fix|Evaluate:
+ * Type '(term: string, p2?: string[] | ((results: Result[]) => void) | undefined, p3?: string[] | undefined) => void'
  * is not assignable to
  * type '{ (term: string, tags?: string[] | undefined): Promise<Result[]>; (term: string, callback: (results: Result[]) => void, tags?: string[] | undefined): void; }'.
  * Type 'void' is not assignable to type 'Promise<Result[]>'.ts(2322)

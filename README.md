@@ -62,6 +62,31 @@
 - Index Type
 - extends keyof
 
+## 13-genericmappedtypes
+
+- Pick
+- Record
+- Readonly, including Deep, Freeze
+- Split Object's Properties Into Available Unions -> `type Split<Obj> = { [P in keyof Obj]: Record<P, Obj[P]> }[keyof Obj]`
+- How To Merge Specific With General
+
+## 14-bindinggenerics
+
+- Binding to Generics allows more versatility, especially for value types
+- The intersection of two distinct value types always results in never
+
+## 15-generictypedefaults
+
+- generic default parameter
+- caution against generic binding, because then infer is canceled out
+
+## 16-ifthisthanthat
+
+- Conditional Types
+- Combining Function Overloads and Conditional Types
+  - TODO But ? just fucks up
+- Function Overloads Are Fine With Conditional Types
+
 # References
 
 - Book's Home at https://typescript-book.com/
