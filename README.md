@@ -87,6 +87,31 @@
   - TODO But ? just fucks up
 - Function Overloads Are Fine With Conditional Types
 
+## 17-distributiveconditionals
+
+- Never as a stop point in Conditional Types
+- createMedium
+  - TODO But ? just fucks up, Conditionals
+- NonNullable and Low-Level Utilities
+  - Promised
+  - Flatten
+  - isNonOptional
+
+## 18-thinkingintypes
+
+- union types for function overloads
+- conditional types with infer
+- variadic tuple types
+
+## 25-conditionaltypesints
+
+- dispatch with two split parameters
+- function body, to narrow args ...
+  - with isType by assertion over same type as the
+    parameter type (see dispatch7)
+  - with unifiying type and args as target type (
+    somehow defeats the split parameters purpose) (see dispatch8)
+
 # References
 
 - Book's Home at https://typescript-book.com/
