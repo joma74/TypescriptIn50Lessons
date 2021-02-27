@@ -200,6 +200,10 @@ function dispatch7<T extends ActionType>(
 	}
 }
 
+function neverError(message: string, token: never) {
+	return new Error(`${message}. ${token} should not exist`)
+}
+
 /**
  * One thing I might be tempted to try would be combining the values back into a single Action object.
  */
@@ -214,6 +218,17 @@ function dispatch8<T extends ActionType>(
 			case "LOG_IN":
 				action.emailAddress // (ok)
 				break
+			case "SYNC":
+				action // (ok)
+				break
+			case "INIT":
+				action // (ok)
+				break
+			case "LOG_IN_SUCCESS":
+				action // (ok)
+				break
+			default:
+				throw neverError("Not sure what to do with that!", action)
 		}
 	}
 }

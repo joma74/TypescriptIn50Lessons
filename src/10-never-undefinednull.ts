@@ -57,14 +57,30 @@ function neverError(message: string, token: never) {
 	return new Error(`${message}. ${token} should not exist`)
 }
 
-function getEventTeaser(event: TechEvent) {
+function getEventTeaser1(event: TechEvent) {
 	switch (event.kind) {
 		case "conference":
 			return `${event.title} (Conference),` + `priced at ${event.price} USD`
 		case "meetup":
-			return `${event.title} (Meetup)` + `hosted at ${event.location} USD`
+			return `${event.title} (Meetup)` + `hosted at ${event.location}`
 		case "webinar":
 			return `${event.title} (Webinar)` + `available at ${event.url}`
+		default:
+			// Argument of type 'Hackathon' is not assignable to parameter of type 'never'.ts(2345)
+			throw neverError("Not sure what to do with that!", event)
+	}
+}
+
+function getEventTeaser2(event: TechEvent) {
+	switch (event.kind) {
+		case "conference":
+			return `${event.title} (Conference),` + `priced at ${event.price} USD`
+		case "meetup":
+			return `${event.title} (Meetup)` + `hosted at ${event.location}`
+		case "webinar":
+			return `${event.title} (Webinar)` + `available at ${event.url}`
+		case "hackathon":
+			return `${event.title} (Webinar)` + `hosted at ${event.location}`
 		default:
 			// Argument of type 'Hackathon' is not assignable to parameter of type 'never'.ts(2345)
 			throw neverError("Not sure what to do with that!", event)

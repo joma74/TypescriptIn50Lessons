@@ -50,6 +50,7 @@
 
 - never as a safeguard
 - strictNullChecks
+- helper neverError(message: string, token: never) for switch statements
 
 ## 11-tupletypes
 
