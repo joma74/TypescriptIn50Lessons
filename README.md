@@ -113,6 +113,11 @@
   - with unifiying type and args as target type (
     somehow defeats the split parameters purpose) (see dispatch8)
 
+## 26-tocamel
+
+- Template literal types
+- Key Remapping in Mapped Types
+
 # References
 
 - Book's Home at https://typescript-book.com/
