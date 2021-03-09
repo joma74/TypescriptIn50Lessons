@@ -118,6 +118,11 @@
 - Template literal types
 - Key Remapping in Mapped Types
 
+## 28-createnewinterferencesite
+
+- With Classes
+- With Currying
+
 # References
 
 - Book's Home at https://typescript-book.com/
