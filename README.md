@@ -123,6 +123,13 @@
 - With Classes
 - With Currying
 
+## 29-typesaferouter
+
+- Apply create new inference site with a class
+- An interface's key is a PropertyKey by string | number | symbol
+- To narrow the type to an interface's key, one can either e.g. `Extract<keyof API, string>` or `keyof API & string`
+- LensOver into type by `type LensOver<T, K> = T[K & keyof T]` for e.g. `API[Path]`
+
 # References
 
 - Book's Home at https://typescript-book.com/
