@@ -130,6 +130,13 @@
 - To narrow the type to an interface's key, one can either e.g. `Extract<keyof API, string>` or `keyof API & string`
 - LensOver into type by `type LensOver<T, K> = T[K & keyof T]` for e.g. `API[Path]`
 
+## 30-typedidentityfunction
+
+- Type Point = [number, number] != [number, number]
+- You have to use a function, just to make TS infer the correct type ("identity function")
+- Unfortunately you can't have a function with one explicit generic parameter and one inferred parameter
+- A Record prevents TS to detect an invalid object key
+
 # References
 
 - Book's Home at https://typescript-book.com/
