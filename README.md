@@ -137,6 +137,19 @@
 - Unfortunately you can't have a function with one explicit generic parameter and one inferred parameter
 - A Record prevents TS to detect an invalid object key
 
+## 31-converttupletypesintounion
+
+- `typeof foo[number]` gives union of `foo` tuple values
+
+## 32-mergedefault
+
+- `typeof foo` on an object is more ad-hoc flexible than typeing it explicitly
+
+Get toys in, get them grouped by type out `function groupToys(toys: Toy[]): GroupedToys`
+1. Union by literal type `Toy["kind"]`
+2. a Grouped by kind of each member of a union `{ [Kind in Toy["kind"]]: Toy[] }`
+2. b Grouped by kind of each member of a union with s postfixed Plus valued by according type of each member of the union ```{ [Kind in Toy["kind"] as `${Kind}s`]: Extract<Group, { kind: Kind }>[] }```
+
 # References
 
 - Book's Home at https://typescript-book.com/
