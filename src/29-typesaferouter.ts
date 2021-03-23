@@ -4,6 +4,7 @@
 export {}
 
 import * as express from "express"
+import { assert, IsExact } from "conditional-type-checks"
 
 /**
  * Generic Tips Part 2: Intersect what you have with whatever TypeScript wants
@@ -60,22 +61,24 @@ type ExtractRouteParams<
 	? { [k in Param]: string }
 	: {} // 1st form
 
-type apiK = keyof API
-type ApiPaths = Extract<apiK, string>
+type ApiPaths<A> = Extract<keyof A, string>
 
 declare let app: express.Router
 declare function getUserById(userId: string): Promise<User>
+
+assert<IsExact<ReturnType<typeof getUserById>, Promise<User>>>(true)
+assert<IsExact<Parameters<typeof getUserById>, [string]>>(true)
 
 /**
  * As "Use Classes and Currying to create new inference sites" explained, you can either use
  * a class or a curried function to capture the API type parameter.
  *
- * But what about that return type of the handler? Really you'd like to look it up from the
- * API interface given Path.
+ * But what about that return type of the handler => Promise<unknown>? Really you'd like to
+ * look it up from the API interface given Path.
  */
 class TypedRouter1<API> {
 	constructor(private router: express.Router) {}
-	get<Path extends ApiPaths>(
+	get<Path extends ApiPaths<API>>(
 		path: Path,
 		handler: (params: ExtractRouteParams<Path>) => Promise<unknown>,
 	) {
@@ -95,7 +98,7 @@ type Response = API["/users/:userId"]["get"]["response"] // (ok) type Response =
 
 class TypedRouter2<API> {
 	constructor(private router: express.Router) {}
-	get<Path extends ApiPaths>(
+	get<Path extends ApiPaths<API>>(
 		path: Path,
 		handler: (
 			params: ExtractRouteParams<Path>,
@@ -112,13 +115,9 @@ class TypedRouter2<API> {
 	}
 }
 
-/**
- * (nok) Type 'Path' cannot be used to index type 'API'.ts(2536) is,
- * again, a site inference problem.
- */
 class TypedRouter3<API> {
 	constructor(private router: express.Router) {}
-	get<Path extends Extract<keyof API, string>>(
+	get<Path extends ApiPaths<API>>(
 		path: Path,
 		handler: (
 			params: ExtractRouteParams<Path>,
@@ -136,7 +135,7 @@ class TypedRouter3<API> {
 
 class TypedRouter4<API> {
 	constructor(private router: express.Router) {}
-	get<Path extends Extract<keyof API, string>>(
+	get<Path extends ApiPaths<API>>(
 		path: Path,
 		handler: (
 			params: ExtractRouteParams<Path>,
@@ -144,10 +143,6 @@ class TypedRouter4<API> {
 			API[Path]["get" & keyof API[Path]]["response" &
 				keyof API[Path]["get" & keyof API[Path]]]
 		>,
-		/**
-		 * (nok) Type '"get"' cannot be used to index type 'API[Path]'.ts(2536)
-		 * (nok) Type '"response"' cannot be used to index type 'API[Path]["get"]'.ts(2536)
-		 **/
 	) {
 		this.router.get(path, (request, response) => {
 			handler(request.params as any).then((obj) => response.json(obj))
