@@ -146,14 +146,19 @@
 - `typeof foo` on an object is more ad-hoc flexible than typeing it explicitly
 
 Get toys in, get them grouped by type out `function groupToys(toys: Toy[]): GroupedToys`
+
 1. Union by literal type `Toy["kind"]`
 2. a Grouped by kind of each member of a union `{ [Kind in Toy["kind"]]: Toy[] }`
-2. b Grouped by kind of each member of a union with s postfixed Plus valued by according type of each member of the union ```{ [Kind in Toy["kind"] as `${Kind}s`]: Extract<Group, { kind: Kind }>[] }```
+3. b Grouped by kind of each member of a union with s postfixed Plus valued by according type of each member of the union `` { [Kind in Toy["kind"] as `${Kind}s`]: Extract<Group, { kind: Kind }>[] } ``
 
 ## 33-prefertypealiasesoverinterfaces
 
 - types are final, interfaces are not
 - types are therefore more type savvier
+
+## 34-filteruser
+
+- Get all object keys as list: `Object.keys(criteria) as (keyof User)[]`
 
 # References
 
