@@ -1,8 +1,7 @@
 /* eslint-disable no-undef, no-unused-vars, @typescript-eslint/no-unused-vars */
 
 // Make it a module
-{
-}
+export {}
 
 /**
  * https://typescript-exercises.github.io/#exercise=6&file=%2Findex.ts

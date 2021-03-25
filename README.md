@@ -156,9 +156,30 @@ Get toys in, get them grouped by type out `function groupToys(toys: Toy[]): Grou
 - types are final, interfaces are not
 - types are therefore more type savvier
 
-## 34-filteruser
+## 34-filterusera
 
+- Filter objects by the same object`s type props as criteria, one type in hierarchy
 - Get all object keys as list: `Object.keys(criteria) as (keyof User)[]`
+
+## 35-filteruserb
+
+- Filter objects by the same object`s type props as criteria, all types in hierarchy
+- Get all object keys as list: `const getObjectKeys = <T>(obj: T) => Object.keys(obj) as (keyof T)[]
+- Overload methods with types in covariant function parameter positions
+
+## 36-overrideintersectionpoftypes
+
+- Make new type out of other interfaces and overridden prop
+  - Any prop must be ommited from interfaces first before overridden
+
+### 37-promisifyacallback
+
+- A callback function is supplied as an argument to a higher-order function(hordfunc) that invokes (“calls back”) the callback function to perform an operation. What’s important is that the hordfunc takes the full responsibility of invoking the callback and supplying it with the right arguments.
+  - A hordfunc is typically of signature `hordfunc: (callback: (hordfuncresult: TypeOfHordfuncResult) => void) => void`
+  - The hordfunc is told via the callback, who's next to work on it's results (action chaining)
+- Corolarry: You do not have to assign a type to a generic if compiler inference works
+  - Inference site for function signature work (See also https://stackoverflow.com/a/59055819/3274229)
+- Model the input and model the output separately first
 
 # References
 
