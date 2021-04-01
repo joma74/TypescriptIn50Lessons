@@ -164,7 +164,7 @@ Get toys in, get them grouped by type out `function groupToys(toys: Toy[]): Grou
 ## 35-filteruserb
 
 - Filter objects by the same object`s type props as criteria, all types in hierarchy
-- Get all object keys as list: `const getObjectKeys = <T>(obj: T) => Object.keys(obj) as (keyof T)[]
+- Get all object keys as list: `const getObjectKeys = <T>(obj: T) => Object.keys(obj) as (keyof T)[]`
 - Overload methods with types in covariant function parameter positions
 
 ## 36-overrideintersectionpoftypes
@@ -177,9 +177,50 @@ Get toys in, get them grouped by type out `function groupToys(toys: Toy[]): Grou
 - A callback function is supplied as an argument to a higher-order function(hordfunc) that invokes (“calls back”) the callback function to perform an operation. What’s important is that the hordfunc takes the full responsibility of invoking the callback and supplying it with the right arguments.
   - A hordfunc is typically of signature `hordfunc: (callback: (hordfuncresult: TypeOfHordfuncResult) => void) => void`
   - The hordfunc is told via the callback, who's next to work on it's results (action chaining)
-- Corolarry: You do not have to assign a type to a generic if compiler inference works
-  - Inference site for function signature work (See also https://stackoverflow.com/a/59055819/3274229)
+- How compiler inference works
+  - Corollary: You do not have to assign a type to a generic if compiler inference works
+  - This observation is made also in https://betterprogramming.pub/understanding-typescript-type-inference-4c25f9777e9e
+  - Implicit form(Compiler later inferences concrete types): `type funcname = <T>(...args: T[]) => T`
+  - Explicit form(Dev later defines concrete types): `type funcname<T> = (...args: T[]) => T`
+  - How inference site for function signature work (See also https://stackoverflow.com/a/59055819/3274229)
 - Model the input and model the output separately first
+
+### 38-generictypeinferonfunction
+
+Exercises implicit and explicit generic type inference on functions
+
+- Implicit form: `function funcname<T>(...)` or `type Funcname = <T>(...) => ...`. May be either used untyped(implicitly inferred) or typed(explicitly).
+  - Usage Untyped: `funcname(...)`
+  - Usage Inline Typed: `funcname<typeof A>(...)`
+  - Usage Extra Typed: `const funcname: Funcname = ...`
+- Explicit form: `type Funcname<T> = (...) => ...`.
+  - Usage Untyped: Almost not working. Only if generic is with default, but usage is then by luck.
+  - Usage Inline Typed: Not supported.
+  - Usage Extra Typed: `const funcname: Funcname<typeof A> = (...) => ...; funcname(...)`
+
+P.S. To define and type a function, one can do
+
+- Inline Typing:
+  - `function funcname<...>(...) {...}`
+- Extra Typing:
+  - `let funA: Funcname = function funcname<...>(...) {...}`
+  - `function funcname<...>(...) {...} as Funcname`
+  - `type Funcname = <...>(...) => ...; const funcname: Funcname = (...) => ...`
+  - Asserting a type on an arrow function `as Fun` is not supported by TypeScript: ~~`const funcname = (...) => { ...} as Funcname`~~
+
+### 39-funoverloadswithinterface
+
+All functions have to handle overloads with optional, up to two parameters and self returns.
+If the second parameter is not given, it must return curried the function or value, whichever is given as the first parameter.
+
+- _*MapFunc*_
+- _*FilterFunc*_
+- _*ArithmeticFunc*_
+- _*PropObjFunc*_: Get Property Value From Some Object. Features this beauty:
+  `<K extends string> .. <O extends { [key in K]: O[key] }>(obj: O): O[K]`: breakdown
+  - `<K extends string>` is assumed to be an object key literal that is known/bound as K.
+  - `<O extends {...}>` means "Where O applies only if it matches the shape of `{...}`".
+  - The shape of `{...}` matches only if `O[key]` returns for `[key in K]`, else it is `ts(2345)/unkown property`. The index signature `[key in K]` requires that index keys of `O` via `O[key]` be members of the union of literal strings `K`.
 
 # References
 
