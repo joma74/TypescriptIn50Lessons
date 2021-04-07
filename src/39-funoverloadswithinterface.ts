@@ -195,6 +195,7 @@ const propv = function bla<O, K extends keyof O & string>(
 	return obj![propName!]
 } as PropVFunc
 
-const propResult1 = propv()("x")()({ x: 1, y: "Hello" }) // (ok) const propResult1: number
+const propNameInSubFunc = propv()("x")
+const propResult1 = propNameInSubFunc()({ x: 1, y: "Hello" }) // (ok) const propResult1: number
 const propResult2 = propv("y", { x: 1, y: "Hello" }) // (ok) const propResult2: string
 const propResult3 = propv("z")({ x: 1, y: "Hello" }) // (ok) Object literal may only specify known properties, and 'x' does not exist in type '{ z: unknown; }'.ts(2345)

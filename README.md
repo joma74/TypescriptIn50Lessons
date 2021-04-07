@@ -210,17 +210,17 @@ P.S. To define and type a function, one can do
 
 ### 39-funoverloadswithinterface
 
-All functions have to handle overloads with optional, up to two parameters and self returns.
-If the second parameter is not given, it must return curried the function or value, whichever is given as the first parameter.
+In these examples, all functions have to handle overloads with optional, up to two parameters and self returns. If the second parameter is not given, it must return curried the function or value, whichever is given as the first parameter.
 
 - _*MapFunc*_
 - _*FilterFunc*_
 - _*ArithmeticFunc*_
 - _*PropObjFunc*_: Get Property Value From Some Object. Features this beauty:
   `<K extends string> .. <O extends { [key in K]: O[key] }>(obj: O): O[K]`: breakdown
-  - `<K extends string>` is assumed to be an object key literal that is known/bound as K.
-  - `<O extends {...}>` means "Where O applies only if it matches the shape of `{...}`".
+  - `<K extends string>` is assumed to be some object key literals that are bound as K.
+  - `<O extends {...}>` means "Where O is a subtype of of `{...}` only if it matches the shape of `{...}`".
   - The shape of `{...}` matches only if `O[key]` returns for `[key in K]`, else it is `ts(2345)/unkown property`. The index signature `[key in K]` requires that index keys of `O` via `O[key]` be members of the union of literal strings `K`.
+  - `O` is in the parameter position
 
 # References
 
