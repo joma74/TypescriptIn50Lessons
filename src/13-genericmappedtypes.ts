@@ -116,7 +116,6 @@ const HQ: AvailableFormats = {
 }
 
 /**
- * P.S. Split4 should be Split5
  * Type '{ format180p: URL; }' is not assignable to type 'Split4'.
  * Object literal may only specify known properties, and 'format180p' does not exist in type 'Split4'.ts(2322)
  */

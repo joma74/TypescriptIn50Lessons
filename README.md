@@ -65,11 +65,46 @@
 
 ## 13-genericmappedtypes
 
-- Pick
-- Record
-- Readonly, including Deep, Freeze
-- Split Object's Properties Into Available Unions -> `type Split<Obj> = { [P in keyof Obj]: Record<P, Obj[P]> }[keyof Obj]`
-- How To Merge Specific With General
+Any of the implementation of the next-listed mapped types are crucial for a sound TypeScript experience:
+
+- Pick: _From T, pick a set of properties whose keys are in the union K_ -> `type Pick<T, K extends keyof T> = { [Key in K]: T[Key]; }`
+- Record: _Construct a type with a set of properties K of type T_ -> `type Record<K extends string | number | symbol, T> = { [P in K]: T; }`
+- Readonly: _Make all properties in T readonly_ -> `type Readonly<T> = { readonly [P in keyof T]: T[P]; }`
+
+Based upon the crucial above
+
+- Freeze: `Object.freeze(obj: Obj)` turns the given type into -> `Readonly<Obj>`
+- Deep: Features a recursion on type's properties -> `type DeepReadonly<Obj> = { readonly [Key in keyof Obj]: DeepReadonly<Obj[Key]> }`
+- Split: Splits type's properties into available unions -> `type Split<Obj> = { [P in keyof Obj]: Record<P, Obj[P]> }[keyof Obj]` such that
+  ```
+  type VideoFormatURLs = {
+    format360p: URL;
+    format480p: URL;
+    format720p: URL;
+    format1080p: URL;
+  }
+  ->
+  type AvailableFormats = Split<VideoFormatURLs>
+  ->
+  type AvailableFormats = Record<"format360p", URL> | Record<"format480p", URL> | Record<"format720p", URL> | Record<"format1080p", URL>
+  ->
+  const HQ: AvailableFormats = {
+    format720p: new URL(""),
+    format1080p: new URL(""),
+  } // (ok)
+  const LQ: AvailableFormats = {
+    format180p: new URL(""),
+  } // (ok)
+  ```
+- How To Merge Specific With General:
+  ```
+  function combinePreferences(
+    defaultUP: UserPreferences,
+    userP: Optional<UserPreferences>,
+  ) {
+    return { ...defaultUP, ...userP }
+  }
+  ```
 
 ## 14-bindinggenerics
 
@@ -132,14 +167,20 @@
 
 ## 30-typedidentityfunction
 
-- Type Point = [number, number] != [number, number]
+- `Type Point = [number, number]` != `[number, number]`
 - You have to use a function, just to make TS infer the correct type ("identity function")
 - Unfortunately you can't have a function with one explicit generic parameter and one inferred parameter
 - A Record prevents TS to detect an invalid object key
 
 ## 31-converttupletypesintounion
 
-- `typeof foo[number]` gives union of `foo` tuple values
+- With [number] on a tuple you'll retrieve all properties on the tuple which can be accessed with a numeric index ->
+
+```
+const categories = ["beginner", "intermediate", "advanced"] as const
+->
+type Category = typeof categories[number] // (ok) type Category = "beginner" | "intermediate" | "advanced"
+```
 
 ## 32-mergedefault
 
@@ -221,6 +262,40 @@ In these examples, all functions have to handle overloads with optional, up to t
   - `<O extends {...}>` means "Where O is a subtype of of `{...}` only if it matches the shape of `{...}`".
   - The shape of `{...}` matches only if `O[key]` returns for `[key in K]`, else it is `ts(2345)/unkown property`. The index signature `[key in K]` requires that index keys of `O` via `O[key]` be members of the union of literal strings `K`.
   - `O` is in the parameter position
+
+### 40-objectwithnewprops
+
+### 41-typechallenges
+
+#### Algebraic Datatypes
+
+- In https://github.com/microsoft/TypeScript-New-Handbook/blob/master/reference/Assignability.md#algebraic-assignability RyanCavanaugh displays some thinking on algebraic? assignability
+
+  > When a union is the source, every element needs to be assignable to the target.
+  > So `A | B | C ⟹ B` is not true in general. It's only true when the target is a supertype of all elements of the source.
+  > ... First, if B is assignable to A, then keyof A is assignable to keyof B:
+  >
+  > ```
+  > keyof A ⟹ keyof B
+  > B ⟹ A
+  > ```
+  >
+  > The reason the direction A -> B flips to B -> A is due to the exhaustivness check.
+  >
+  > ```
+  > A = { a, b }
+  > B = { a, b, c }
+  > ```
+  >
+  > Here, B has an extra property c, so it's OK to assign B to an A with fewer properties (`B ⟹ A`).
+  >
+  > Regarding keys. `keyof A ⟹ keyof B` holds because `"a" | "b" ⟹ "a" | "b" | "c"`.
+
+#### `[]` Is Not Equal To `any[]`
+
+`[]` denotes only an empty array.
+
+`any[]` denotes
 
 # References
 
